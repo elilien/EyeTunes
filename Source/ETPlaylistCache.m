@@ -40,13 +40,6 @@
 
 
 // as a singleton we are never dealloced but the clang statc analyzer doesn't know this
-- (void) dealloc
-{
-	[playlists release];
-	[userPlaylists release];
-	
-	[super dealloc];
-}
 
 - (void) reload;
 {
@@ -54,28 +47,28 @@
 	[userPlaylists removeAllObjects];
 	
 	
-	ETPlaylist * rootPlaylist = [[[ETPlaylist alloc] init] autorelease];
+	ETPlaylist * rootPlaylist = [[ETPlaylist alloc] init];
 	[rootPlaylist setPersistentId:kETSpecialPlaylistRoot];
 	[playlists setObject:rootPlaylist forKey:[NSNumber numberWithLongLong:kETSpecialPlaylistRoot]];
 	
 	// category playlists
-	ETPlaylist * libraryCategory = [[[ETPlaylist alloc] init] autorelease];
+	ETPlaylist * libraryCategory = [[ETPlaylist alloc] init];
 	[libraryCategory setParentPlaylistId:kETSpecialPlaylistRoot];
 	[libraryCategory setPersistentId:kETSpecialPlaylistCategoryLibrary];
 	[playlists setObject:libraryCategory forKey:[NSNumber numberWithLongLong:kETSpecialPlaylistCategoryLibrary]];
 	
-	ETPlaylist * storeCategory = [[[ETPlaylist alloc] init] autorelease];
+	ETPlaylist * storeCategory = [[ETPlaylist alloc] init];
 	[storeCategory setParentPlaylistId:kETSpecialPlaylistRoot];
 	[storeCategory setPersistentId:kETSpecialPlaylistCategoryStore];
 	[playlists setObject:storeCategory forKey:[NSNumber numberWithLongLong:kETSpecialPlaylistCategoryStore]];
 	
-	ETPlaylist * playlistsCategory = [[[ETPlaylist alloc] init] autorelease];
+	ETPlaylist * playlistsCategory = [[ETPlaylist alloc] init];
 	[playlistsCategory setParentPlaylistId:kETSpecialPlaylistRoot];
 	[playlistsCategory setPersistentId:kETSpecialPlaylistCategoryPlaylists];
 	[playlists setObject:playlistsCategory forKey:[NSNumber numberWithLongLong:kETSpecialPlaylistCategoryPlaylists]];
 	
 	// add all playlists
-	ETPlaylistEnumerator * en = [[[ETPlaylistEnumerator alloc] init] autorelease];
+	ETPlaylistEnumerator * en = [[ETPlaylistEnumerator alloc] init];
 	ETPlaylist * playlist = nil;
 	while ((playlist = [en nextObject])) 
 	{
@@ -145,11 +138,11 @@
 	// ==== user playlist tree
 	//
 	
-	ETPlaylist * rootUserPlaylist = [[[ETPlaylist alloc] init] autorelease];
+	ETPlaylist * rootUserPlaylist = [[ETPlaylist alloc] init];
 	[rootUserPlaylist setPersistentId:kETSpecialPlaylistRoot];
 	[userPlaylists setObject:rootUserPlaylist forKey:[NSNumber numberWithLongLong:kETSpecialPlaylistRoot]];
 		
-	en = [[[ETPlaylistEnumerator alloc] init] autorelease];
+	en = [[ETPlaylistEnumerator alloc] init];
 	while ((playlist = [en nextObject])) 
 	{
 		if ([playlist specialKind] == kETSpecialPlaylistNone || [playlist specialKind] == kETSpecialPlaylistFolder)

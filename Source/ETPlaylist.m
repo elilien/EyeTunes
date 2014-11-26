@@ -59,12 +59,6 @@ static const BOOL doLog = NO;
 	return self;
 }
 
-- (void) dealloc
-{
-	[childPlaylistIds release];
-	
-	[super dealloc];
-}
 
 - (NSString *)name
 {
@@ -131,7 +125,7 @@ static const BOOL doLog = NO;
 		return nil;
 	}
 	
-	ETPlaylist * parentPlaylist = [[[ETPlaylist alloc] initWithDescriptor:&playlistDescriptor] autorelease];
+	ETPlaylist * parentPlaylist = [[ETPlaylist alloc] initWithDescriptor:&playlistDescriptor];
 	AEDisposeDesc(replyEvent);
 	free(replyEvent);
 	
@@ -177,7 +171,7 @@ static const BOOL doLog = NO;
 
 - (NSEnumerator *)trackEnumerator
 {
-	return [[[ETTrackEnumerator alloc] initWithPlaylist:self] autorelease];
+	return [[ETTrackEnumerator alloc] initWithPlaylist:self];
 }
 
 - (ETTrack *)trackWithDatabaseId:(int)databaseId
@@ -197,7 +191,7 @@ static const BOOL doLog = NO;
 		goto cleanup_reply_event;
 	}
 	
-	foundTrack = [[[ETTrack alloc] initWithDescriptor:&replyObject] autorelease];
+	foundTrack = [[ETTrack alloc] initWithDescriptor:&replyObject];
 	
 cleanup_reply_event:
 	AEDisposeDesc(replyEvent);
@@ -238,7 +232,7 @@ cleanup_reply_event:
 		goto cleanup_reply_event;
 	}
 	
-	foundTrack = [[[ETTrack alloc] initWithDescriptor:&replyObject] autorelease];
+	foundTrack = [[ETTrack alloc] initWithDescriptor:&replyObject];
 	
 cleanup_reply_event:
 	AEDisposeDesc(replyEvent);
@@ -275,7 +269,7 @@ cleanup_reply_event:
 		goto cleanup_reply_event;
 	}
 	
-	foundTrack = [[[ETTrack alloc] initWithDescriptor:&replyObject] autorelease];
+	foundTrack = [[ETTrack alloc] initWithDescriptor:&replyObject];
 	
 cleanup_reply_event:
 	AEDisposeDesc(replyEvent);

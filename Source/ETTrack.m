@@ -172,7 +172,7 @@
 		
 		NSData *pictData = [NSData dataWithBytesNoCopy:pictBytes length:resultSize freeWhenDone:YES];
 		if (pictData != nil) {
-			NSImage *artworkImage = [[[NSImage alloc] initWithData:pictData] autorelease];
+			NSImage *artworkImage = [[NSImage alloc] initWithData:pictData];
 			if (artworkImage != nil) {
 				[artworkArray addObject:artworkImage];
 			}

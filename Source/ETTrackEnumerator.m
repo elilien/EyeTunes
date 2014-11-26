@@ -49,18 +49,13 @@
 {
 	self = [super init];
 	if (self) {
-		playlist = [newPlaylist retain];
+		playlist = newPlaylist;
 		count = [playlist trackCount];
 		seq = 0;
 	}
 	return self;
 }
 
-- (void) dealloc
-{
-	[playlist release];
-	[super dealloc];
-}
 
 - (id) nextObject
 {
@@ -80,7 +75,7 @@
 	if (err != noErr)
 		return nil;
 
-	ETTrack *thisTrack = [[[ETTrack alloc] initWithDescriptor:&trackDescriptor] autorelease];
+	ETTrack *thisTrack = [[ETTrack alloc] initWithDescriptor:&trackDescriptor];
 	seq++;
 	return thisTrack;
 }

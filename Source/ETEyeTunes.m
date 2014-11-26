@@ -289,7 +289,7 @@ const OSType iTunesSignature = ET_APPLE_EVENT_OBJECT_DEFAULT_APPL;
 		goto cleanup_reply_event;
 	}
 	
-	currentTrack = [[[ETTrack alloc] initWithDescriptor:&replyObject] autorelease];
+	currentTrack = [[ETTrack alloc] initWithDescriptor:&replyObject];
 
 cleanup_reply_event:
 	AEDisposeDesc(&replyEvent);
@@ -339,7 +339,7 @@ cleanup_get_event:
 		goto cleanup_reply_event;
 	}
 	
-	currentPlaylist = [[[ETPlaylist alloc] initWithDescriptor:&replyObject] autorelease];
+	currentPlaylist = [[ETPlaylist alloc] initWithDescriptor:&replyObject];
 	
 cleanup_reply_event:
 		AEDisposeDesc(&replyEvent);
@@ -366,7 +366,7 @@ cleanup_get_event:
 		goto cleanup_reply_event;
 	}
 	
-	libraryPlaylist = [[[ETPlaylist alloc] initWithDescriptor:&replyObject] autorelease];
+	libraryPlaylist = [[ETPlaylist alloc] initWithDescriptor:&replyObject];
 
 cleanup_reply_event:
 	AEDisposeDesc(replyEvent);
@@ -455,7 +455,7 @@ cleanup_reply_event:
 			ETLog(@"Error rextracting from List: %d", err);
 			goto cleanup_reply_list;
 		}
-		[trackList addObject:[[[ETTrack alloc] initWithDescriptor:&trackDesc] autorelease]];
+		[trackList addObject:[[ETTrack alloc] initWithDescriptor:&trackDesc]];
 	}
 
 cleanup_reply_list:
@@ -550,7 +550,7 @@ cleanup_get_event:
 			ETLog(@"Error rextracting from List: %d | %s | %s", err, GetMacOSStatusErrorString(err), GetMacOSStatusCommentString(err));
 			goto cleanup_reply_list;
 		}
-		[trackList addObject:[[[ETTrack alloc] initWithDescriptor:&trackDesc] autorelease]];
+		[trackList addObject:[[ETTrack alloc] initWithDescriptor:&trackDesc]];
 	}
 	
 cleanup_reply_list:
@@ -620,7 +620,7 @@ cleanup_get_event:
 			ETLog(@"Error rextracting from List: %d", err);
 			goto cleanup_reply_list;
 		}
-		[trackList addObject:[[[ETTrack alloc] initWithDescriptor:&trackDesc] autorelease]];
+		[trackList addObject:[[ETTrack alloc] initWithDescriptor:&trackDesc]];
 	}
 	
 cleanup_reply_list:
@@ -660,7 +660,7 @@ cleanup_get_event:
 
 - (NSEnumerator *)playlistEnumerator
 {
-	return [[[ETPlaylistEnumerator alloc] init] autorelease];
+	return [[ETPlaylistEnumerator alloc] init];
 
 }
 
@@ -679,7 +679,7 @@ cleanup_get_event:
 
 - (NSEnumerator *)userPlaylistEnumerator;
 {
-	return [[[ETUserPlaylistEnumerator alloc] init] autorelease];
+	return [[ETUserPlaylistEnumerator alloc] init];
 }
 
 
@@ -721,7 +721,7 @@ cleanup_get_event:
 		goto cleanup_reply_event;
 	}
 	
-	foundPlaylist = [[[ETPlaylist alloc] initWithDescriptor:&replyObject] autorelease];
+	foundPlaylist = [[ETPlaylist alloc] initWithDescriptor:&replyObject];
 	
 cleanup_reply_event:
 	AEDisposeDesc(replyEvent);
@@ -756,7 +756,7 @@ cleanup_reply_event:
 {
 	static NSString *_cachedVersion = nil;
 	if (_cachedVersion == nil) {
-		_cachedVersion = [[self getPropertyAsVersionForDesc:ET_APP_VERSION] retain];
+		_cachedVersion = [self getPropertyAsVersionForDesc:ET_APP_VERSION];
 	}
 	return _cachedVersion;
 }
@@ -823,7 +823,7 @@ cleanup_reply_event:
 		goto cleanup_reply_event;
 	}
 	
-	playlist = [[[ETPlaylist alloc] initWithDescriptor:&replyObject] autorelease];
+	playlist = [[ETPlaylist alloc] initWithDescriptor:&replyObject];
 	
 cleanup_reply_event:
 	AEDisposeDesc(&replyEvent);

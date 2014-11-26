@@ -80,7 +80,6 @@
 {
 	AEDisposeDesc(refDescriptor);
 	free(refDescriptor);
-	[super dealloc];
 }
 
 - (AEDesc *)descriptor
@@ -159,7 +158,7 @@
 - (NSString *) stringForOSType: (DescType) descType;
 {
     CFStringRef descRef = UTCreateStringForOSType(descType);
-    NSString * descString = [NSString stringWithString:(NSString *)descRef];
+    NSString * descString = [NSString stringWithString:(__bridge NSString *)descRef];
     CFRelease(descRef);
     return descString;
 }
@@ -836,9 +835,9 @@
 		for (i = 0; i < resultSize/2; i++)
 			replyValue[i] = CFSwapInt16BigToHost(replyValue[i]);
 		
-		replyString = [[[NSString alloc] initWithBytes:replyValue 
+		replyString = [[NSString alloc] initWithBytes:replyValue 
 												length:resultSize 
-											  encoding:NSUnicodeStringEncoding] autorelease];
+											  encoding:NSUnicodeStringEncoding];
 	}
 	else if (resultType == typeChar) {
 		err =  AEGetParamPtr(replyEvent, keyDirectObject, typeChar, &resultType, 
@@ -849,9 +848,9 @@
 			goto cleanup_reply_and_tempstring;
 		}
 		
-		replyString = [[[NSString alloc] initWithBytes:replyValue 
+		replyString = [[NSString alloc] initWithBytes:replyValue 
 												length:resultSize
-											  encoding:NSASCIIStringEncoding] autorelease];
+											  encoding:NSASCIIStringEncoding];
 	}
 	
 
@@ -942,8 +941,8 @@ cleanup_reply:
 		goto cleanup_reply_and_tempstring;
 	}
 		
-	replyString = [[[NSString alloc] initWithCString:replyValue+ET_TYPE_VERSION_MAGIC_BYTE_SKIP
-											encoding:NSASCIIStringEncoding] autorelease];
+	replyString = [[NSString alloc] initWithCString:replyValue+ET_TYPE_VERSION_MAGIC_BYTE_SKIP
+											encoding:NSASCIIStringEncoding];
 	
 cleanup_reply_and_tempstring:
 	free(replyValue);
@@ -991,7 +990,7 @@ cleanup_reply:
 	/* Convert Alias to NSString */
 	CFURLRef resolvedURL = CFURLCreateFromFSRef(NULL, &fsRef);
 	if (resolvedURL) {
-		urlString = [(NSURL *)resolvedURL absoluteString];
+		urlString = [(__bridge NSURL *)resolvedURL absoluteString];
 		CFRelease(resolvedURL);
 	}
 	
@@ -1194,9 +1193,9 @@ cleanup_reply:
 		replyValue[i] = CFSwapInt16BigToHost(replyValue[i]);
 	
 	
-	replyString = [[[NSString alloc] initWithBytes:replyValue 
+	replyString = [[NSString alloc] initWithBytes:replyValue 
 											length:resultSize 
-										  encoding:NSUnicodeStringEncoding] autorelease];
+										  encoding:NSUnicodeStringEncoding];
 	
     valueAndDump = [NSArray arrayWithObjects:replyString,
 		[ETAppleEventObject debugHexDump:replyValue ofLength:resultSize], nil];
@@ -1237,7 +1236,7 @@ cleanup_reply:
 	/* Convert Alias to NSString */
 	CFURLRef resolvedURL = CFURLCreateFromFSRef(NULL, &fsRef);
 	
-	NSArray *valueAndDump = [NSArray arrayWithObjects:(NSURL *)resolvedURL,
+	NSArray *valueAndDump = [NSArray arrayWithObjects:(__bridge NSURL *)resolvedURL,
 		[ETAppleEventObject debugHexDump:(void *)&fsRef ofLength:sizeof(fsRef)], nil];
 	
 	if (resolvedURL) {

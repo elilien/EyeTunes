@@ -69,7 +69,7 @@
 	if (err != noErr)
 		NSLog(@"Unable to exec getParamDesc: %d", err);
 	
-	ETPlaylist *thisPlaylist = [[[ETPlaylist alloc] initWithDescriptor:&playlistDescriptor] autorelease];
+	ETPlaylist *thisPlaylist = [[ETPlaylist alloc] initWithDescriptor:&playlistDescriptor];
 	seq++;
 	return thisPlaylist;
 }
